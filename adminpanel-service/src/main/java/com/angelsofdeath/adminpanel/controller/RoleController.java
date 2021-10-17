@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/roles")
 public class RoleController {
@@ -21,5 +23,10 @@ public class RoleController {
     @GetMapping("/{id}")
     public Role getRole(@PathVariable("id") Long roleId) {
         return roleService.getRole(roleId);
+    }
+
+    @GetMapping("/priority/{priority}")
+    public List<Role> getRolesBelowPriority(@PathVariable("priority") int priority){
+        return roleService.getRolesBelowPriority(priority);
     }
 }

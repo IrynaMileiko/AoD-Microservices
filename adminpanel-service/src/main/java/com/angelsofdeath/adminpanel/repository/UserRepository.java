@@ -56,4 +56,10 @@ public class UserRepository {
         connector.disconnect();
         return users;
     }
+
+    public void updateUser(String uid, String login, String password, String roleId, String nickname, String comment) {
+        connector.connect();
+        connector.editUser(uid, login, password, nickname, comment, roleId);
+        connector.disconnect();
+    }
 }

@@ -27,14 +27,12 @@ public class DbConnector {
 
     public ResultSet getUsers(String sortColumn, boolean direct, int priority) {
         try {
-            System.out.println("here");
             ResultSet rs;
             String sql = "SELECT * FROM user JOIN role ON user.roleId=role.id\n" +
                     "WHERE priority<" + priority + "\n" +
                     "ORDER BY " + sortColumn + " " + (direct ? "ASC" : "DESC");
             Statement stat = con.createStatement();
             rs = stat.executeQuery(sql);
-            System.out.println("got result of "+sql);
             return rs;
         } catch (SQLException throwables) {
             throwables.printStackTrace();

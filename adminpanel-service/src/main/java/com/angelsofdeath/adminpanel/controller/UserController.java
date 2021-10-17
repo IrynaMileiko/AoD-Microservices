@@ -19,8 +19,13 @@ public class UserController {
     }
 
     @GetMapping("/all")
-
     public List<User> getAllUsers(@RequestParam String sortColumn, @RequestParam boolean direct, @RequestParam int priority) {
         return userService.getAllUsers(sortColumn, direct, priority);
+    }
+
+    @PostMapping("/update")
+    public void updateUser(@RequestParam String uid, @RequestParam String login, @RequestParam String password,
+                           @RequestParam String roleId, @RequestParam String nickname, @RequestParam String comment){
+        userService.updateUser(uid, login, password, roleId, nickname, comment);
     }
 }

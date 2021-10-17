@@ -22,4 +22,8 @@ public class UserService {
     public List<User> getAllUsers(String sortColumn, boolean direct, int priority) {
         return userRepository.getAllUsers(sortColumn, direct, priority);
     }
+
+    public void updateUser(String uid, String login, String password, String roleId, String nickname, String comment) {
+        userRepository.updateUser(uid, login, password, roleId, nickname, comment);
+    }
 }
