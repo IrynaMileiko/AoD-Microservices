@@ -96,44 +96,6 @@ public class DbConnector {
         return null;
     }
 
-    public String[] isThereUser(String login, String password) {
-        String res[] = {"-1", ""}; // id, priority
-        ResultSet rs;
-        String sql = "SELECT * FROM user JOIN role ON user.roleId=role.id " +
-                "WHERE login='" + login+"'";
-        Statement st = null;
-        try {
-            st = con.createStatement();
-            rs = st.executeQuery(sql);
-            if (!rs.next()) {
-                return res;
-            }
-            if (password.equals(rs.getString("password"))) {
-                res[0] = rs.getString("id");
-                res[1] = rs.getString("priority");
-                return res;
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return res;
-    }
-
-    public String getUser(String login) {
-        try {
-            ResultSet rs;
-            String sql = "SELECT * FROM user\n" +
-                    "WHERE login='" + login+"'";
-            Statement stat = con.createStatement();
-            rs = stat.executeQuery(sql);
-            rs.next();
-            return rs.getString("id");
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-        return null;
-    }
-
     public ResultSet getRoles(int priority) {
         try {
             ResultSet rs;
@@ -169,14 +131,4 @@ public class DbConnector {
         }
     }
 
-    public void addUser(String username, String login, String password) {
-        try {
-            String sql = "INSERT into user(login, password, roleId, nickname) values ('" + login + "', '" +
-                    password + "', '" + "1', '" + username + "');";
-            Statement stat = con.createStatement();
-            stat.executeUpdate(sql);
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-    }
 }
