@@ -68,6 +68,34 @@ public class DbConnector {
         return null;
     }
 
+    public ResultSet getUserByLogin(String login) {
+        try {
+            ResultSet rs;
+            String sql = "SELECT * FROM user\n" +
+                    "WHERE login=" + login;
+            Statement stat = con.createStatement();
+            rs = stat.executeQuery(sql);
+            return rs;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return null;
+    }
+
+    public ResultSet getUserByNickname(String nickname) {
+        try {
+            ResultSet rs;
+            String sql = "SELECT * FROM user\n" +
+                    "WHERE nickname=" + nickname;
+            Statement stat = con.createStatement();
+            rs = stat.executeQuery(sql);
+            return rs;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return null;
+    }
+
     public String[] isThereUser(String login, String password) {
         String res[] = {"-1", ""}; // id, priority
         ResultSet rs;

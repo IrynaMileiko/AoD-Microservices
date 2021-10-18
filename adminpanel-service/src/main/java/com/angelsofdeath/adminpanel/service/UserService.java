@@ -26,4 +26,16 @@ public class UserService {
     public void updateUser(String uid, String login, String password, String roleId, String nickname, String comment) {
         userRepository.updateUser(uid, login, password, roleId, nickname, comment);
     }
+
+    public User getUserByLogin(String login) {
+        return userRepository.getUserByLogin(login);
+    }
+
+    public User getUserByNickname(String nickname) {
+        return userRepository.getUserByNickname(nickname);
+    }
+
+    public void deleteUser(String id) {
+        userRepository.deleteUser(id);
+    }
 }

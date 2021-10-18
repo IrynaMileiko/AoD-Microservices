@@ -3,6 +3,7 @@ package com.angelsofdeath.adminpanel.repository;
 import com.angelsofdeath.adminpanel.entity.Role;
 import com.angelsofdeath.adminpanel.entity.User;
 
+import javax.management.relation.Relation;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Arrays;
@@ -60,6 +61,54 @@ public class UserRepository {
     public void updateUser(String uid, String login, String password, String roleId, String nickname, String comment) {
         connector.connect();
         connector.editUser(uid, login, password, nickname, comment, roleId);
+        connector.disconnect();
+    }
+
+    public User getUserByLogin(String login) {
+        connector.connect();
+        ResultSet rs = connector.getUserByLogin(login);
+        User user = new User();
+        try {
+            rs.next();
+            user.setId(rs.getLong("id"));
+            user.setLogin(rs.getString("login"));
+            user.setPassword(rs.getString("password"));
+            user.setRoleId(rs.getLong("roleId"));
+            user.setNickname(rs.getString("nickname"));
+            user.setComment(rs.getString("comment"));
+            user.setRole(roleRepository.getRole(user.getRoleId()));
+        } catch (
+                SQLException e) {
+            user = null;
+        }
+        connector.disconnect();
+        return user;
+    }
+
+    public User getUserByNickname(String nickname) {
+        connector.connect();
+        ResultSet rs = connector.getUserByNickname(nickname);
+        User user = new User();
+        try {
+            rs.next();
+            user.setId(rs.getLong("id"));
+            user.setLogin(rs.getString("login"));
+            user.setPassword(rs.getString("password"));
+            user.setRoleId(rs.getLong("roleId"));
+            user.setNickname(rs.getString("nickname"));
+            user.setComment(rs.getString("comment"));
+            user.setRole(roleRepository.getRole(user.getRoleId()));
+        } catch (
+                SQLException e) {
+            user = null;
+        }
+        connector.disconnect();
+        return user;
+    }
+
+    public void deleteUser(String id) {
+        connector.connect();
+        connector.deleteUser(id);
         connector.disconnect();
     }
 }
