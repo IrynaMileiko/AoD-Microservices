@@ -40,7 +40,7 @@ public class DbConnector {
         return null;
     }
 
-    public ResultSet getRole(Long rId){
+    public ResultSet getRole(Long rId) {
         try {
             ResultSet rs;
             String sql = "SELECT * FROM role\n" +
@@ -159,5 +159,16 @@ public class DbConnector {
             throwables.printStackTrace();
         }
         return null;
+    }
+
+    public void updateProfile(String uId, String password, String nickname, String comment) {
+        try {
+            String sql = "UPDATE user set password=\"" + password + "\", nickname=\"" + nickname +
+                    "\", comment=\"" + comment + "\" WHERE id=" + uId;
+            Statement stat = con.createStatement();
+            stat.executeUpdate(sql);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
     }
 }
