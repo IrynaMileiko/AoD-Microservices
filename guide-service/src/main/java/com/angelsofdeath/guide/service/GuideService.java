@@ -14,4 +14,8 @@ public class GuideService {
     public List<Guide> getAllGuides() {
         return guideRepository.getAllGuides();
     }
+
+    public Guide getGuide(String id) {
+        return guideRepository.getGuide(id);
+    }
 }

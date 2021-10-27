@@ -50,4 +50,39 @@ public class GuideRepository {
         connector.disconnect();
         return guides;
     }
+
+    public Guide getGuide(String id) {
+        connector.connect();
+        ResultSet rs = connector.getGuide(id);
+        Guide guide = new Guide();
+        try {
+            rs.next();
+            guide.setId(rs.getLong("guide.id"));
+            guide.setUserId(rs.getLong("user.id"));
+            guide.setDate(rs.getString("date"));
+            guide.setName(rs.getString("guide.name"));
+            guide.setText(rs.getString("text"));
+
+            Role role = new Role();
+            role.setId(rs.getLong("role.id"));
+            role.setName(rs.getString("role.name"));
+            role.setPriority(rs.getInt("priority"));
+
+            User user = new User();
+            user.setId(rs.getLong("user.id"));
+            user.setLogin(rs.getString("login"));
+            user.setPassword(rs.getString("password"));
+            user.setRoleId(rs.getLong("roleId"));
+            user.setNickname(rs.getString("nickname"));
+            user.setComment(rs.getString("comment"));
+
+            user.setRole(role);
+            guide.setUser(user);
+
+        } catch (SQLException e) {
+            return null;
+        }
+        connector.disconnect();
+        return guide;
+    }
 }

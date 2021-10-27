@@ -39,6 +39,7 @@ public class DbConnector {
         }
         return null;
     }
+
     public ResultSet getEvents() {
         try {
             ResultSet rs;
@@ -53,6 +54,7 @@ public class DbConnector {
         }
         return null;
     }
+
     public ResultSet getGuides() {
         try {
             ResultSet rs;
@@ -68,67 +70,13 @@ public class DbConnector {
         return null;
     }
 
-    public ResultSet getRole(Long rId){
+    public ResultSet getGuide(String id) {
         try {
             ResultSet rs;
-            String sql = "SELECT * FROM role\n" +
-                    "WHERE id=" + rId;
-            Statement stat = con.createStatement();
-            rs = stat.executeQuery(sql);
-            return rs;
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-        return null;
-    }
-
-    public ResultSet getUser(Long uId) {
-        try {
-            ResultSet rs;
-            String sql = "SELECT * FROM user\n" +
-                    "WHERE id=" + uId;
-            Statement stat = con.createStatement();
-            rs = stat.executeQuery(sql);
-            return rs;
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-        return null;
-    }
-
-    public ResultSet getUserByLogin(String login) {
-        try {
-            ResultSet rs;
-            String sql = "SELECT * FROM user\n" +
-                    "WHERE login=" + login;
-            Statement stat = con.createStatement();
-            rs = stat.executeQuery(sql);
-            return rs;
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-        return null;
-    }
-
-    public ResultSet getUserByNickname(String nickname) {
-        try {
-            ResultSet rs;
-            String sql = "SELECT * FROM user\n" +
-                    "WHERE nickname=" + nickname;
-            Statement stat = con.createStatement();
-            rs = stat.executeQuery(sql);
-            return rs;
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-        return null;
-    }
-
-    public ResultSet getRoles(int priority) {
-        try {
-            ResultSet rs;
-            String sql = "SELECT * FROM `role`\n" +
-                    "WHERE priority<" + priority;
+            String sql = "SELECT * FROM guide JOIN user JOIN role\n" +
+                    "ON guide.userId = user.id AND user.roleId = role.id\n" +
+                    "WHERE guide.id = " + id +
+                    "\nORDER BY DATE DESC;";
             Statement stat = con.createStatement();
             rs = stat.executeQuery(sql);
             return rs;
