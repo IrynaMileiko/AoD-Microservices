@@ -25,102 +25,6 @@ public class DbConnector {
         }
     }
 
-    public ResultSet getUsers(String sortColumn, boolean direct, int priority) {
-        try {
-            ResultSet rs;
-            String sql = "SELECT * FROM user JOIN role ON user.roleId=role.id\n" +
-                    "WHERE priority<" + priority + "\n" +
-                    "ORDER BY " + sortColumn + " " + (direct ? "ASC" : "DESC");
-            Statement stat = con.createStatement();
-            rs = stat.executeQuery(sql);
-            return rs;
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-        return null;
-    }
-
-    public ResultSet getRole(Long rId) {
-        try {
-            ResultSet rs;
-            String sql = "SELECT * FROM role\n" +
-                    "WHERE id=" + rId;
-            Statement stat = con.createStatement();
-            rs = stat.executeQuery(sql);
-            return rs;
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-        return null;
-    }
-
-    public ResultSet getUser(Long uId) {
-        try {
-            ResultSet rs;
-            String sql = "SELECT * FROM user\n" +
-                    "WHERE id=" + uId;
-            Statement stat = con.createStatement();
-            rs = stat.executeQuery(sql);
-            return rs;
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-        return null;
-    }
-
-    public ResultSet getUserByLogin(String login) {
-        try {
-            ResultSet rs;
-            String sql = "SELECT * FROM user\n" +
-                    "WHERE login=" + login;
-            Statement stat = con.createStatement();
-            rs = stat.executeQuery(sql);
-            return rs;
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-        return null;
-    }
-
-    public ResultSet getUserByNickname(String nickname) {
-        try {
-            ResultSet rs;
-            String sql = "SELECT * FROM user\n" +
-                    "WHERE nickname=" + nickname;
-            Statement stat = con.createStatement();
-            rs = stat.executeQuery(sql);
-            return rs;
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-        return null;
-    }
-
-    public ResultSet getRoles(int priority) {
-        try {
-            ResultSet rs;
-            String sql = "SELECT * FROM `role`\n" +
-                    "WHERE priority<" + priority;
-            Statement stat = con.createStatement();
-            rs = stat.executeQuery(sql);
-            return rs;
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-        return null;
-    }
-
-    public void editUser(String uId, String login, String password, String username, String comment, String rId) {
-        try {
-            String sql = "UPDATE user set login=\"" + login + "\", password=\"" + password + "\", nickname=\"" + username +
-                    "\", comment=\"" + comment + "\", roleId=\"" + rId + "\" WHERE id=" + uId;
-            Statement stat = con.createStatement();
-            stat.executeUpdate(sql);
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-    }
-
     public void deleteUser(String uId) {
         try {
             String sql = "DELETE FROM user WHERE id=" + uId;
@@ -165,6 +69,50 @@ public class DbConnector {
         try {
             String sql = "UPDATE user set password=\"" + password + "\", nickname=\"" + nickname +
                     "\", comment=\"" + comment + "\" WHERE id=" + uId;
+            Statement stat = con.createStatement();
+            stat.executeUpdate(sql);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
+    public ResultSet getAllClasses() {
+        try {
+            ResultSet rs;
+            String sql = "SELECT * FROM charclass\n";
+            Statement stat = con.createStatement();
+            rs = stat.executeQuery(sql);
+            return rs;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return null;
+    }
+
+    public ResultSet getCharByName(String name) {
+        try {
+            ResultSet rs;
+            String sql = "SELECT * FROM charclass JOIN gamechar\n" +
+                    "ON gamechar.classId=charclass.id\n" +
+                    "    WHERE gamechar.name=\"" + name + "\"";
+            Statement stat = con.createStatement();
+            rs = stat.executeQuery(sql);
+            return rs;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return null;
+    }
+
+    public void addCharacter(String name, String classId, String descr, String userId) {
+        try {
+            String sql = "Insert into gamechar (name, classId, userId, description) " +
+                    "VALUES(" +
+                    "\"" + name + "\", " +
+                    "\"" + classId + "\", " +
+                    "\"" + userId + "\", " +
+                    "\"" + descr + "\"" +
+                    ")";
             Statement stat = con.createStatement();
             stat.executeUpdate(sql);
         } catch (SQLException throwables) {

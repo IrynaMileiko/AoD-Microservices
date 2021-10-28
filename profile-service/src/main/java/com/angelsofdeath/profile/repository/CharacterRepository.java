@@ -59,4 +59,43 @@ public class CharacterRepository {
         connector.disconnect();
         return characters;
     }
+
+    public List<CharClass> getAllClasses() {
+        connector.connect();
+        ResultSet rs = connector.getAllClasses();
+        List<CharClass> classes = new LinkedList<>();
+        try {
+            while (rs.next()) {
+                CharClass charClass = new CharClass();
+                charClass.setId(rs.getLong("charclass.id"));
+                charClass.setName(rs.getString("charclass.name"));
+                charClass.setImg(rs.getString("img"));
+                classes.add(charClass);
+            }
+        } catch (SQLException e) {
+
+        }
+        connector.disconnect();
+        return classes;
+    }
+
+    public Boolean getCharByName(String name) {
+        connector.connect();
+        ResultSet rs = connector.getCharByName(name);
+        try {
+            if(rs.next()){
+                return true;
+            }
+            return false;
+        } catch (SQLException e) {
+        }
+        connector.disconnect();
+        return false;
+    }
+
+    public void addCharacter(String name, String classId, String descr, String userId) {
+        connector.connect();
+        connector.addCharacter(name,classId,descr,userId);
+        connector.disconnect();
+    }
 }
