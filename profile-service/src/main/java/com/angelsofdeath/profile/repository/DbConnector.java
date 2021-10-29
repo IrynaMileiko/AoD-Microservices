@@ -119,4 +119,59 @@ public class DbConnector {
             throwables.printStackTrace();
         }
     }
+
+    public void deleteCharacter(String chId) {
+        try {
+            String sql = "DELETE FROM gamechar WHERE id = \"" + chId + "\"";
+            Statement stat = con.createStatement();
+            stat.executeUpdate(sql);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
+    public ResultSet getChUs(String chId, String userId) {
+        try {
+            ResultSet rs;
+            String sql = "SELECT * FROM user JOIN gamechar\n" +
+                    "ON gamechar.userId = user.id\n" +
+                    "    WHERE user.id=\"" + userId + "\" AND " +
+                    "       gamechar.id=\"" + chId + "\"";
+            Statement stat = con.createStatement();
+            rs = stat.executeQuery(sql);
+            return rs;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return null;
+    }
+
+    public ResultSet getCharByNameId(String name, String chId) {
+        try {
+            ResultSet rs;
+            String sql = "SELECT * FROM gamechar\n" +
+                    "    WHERE name=\"" + name + "\" AND id!=\"" + chId + "\"";
+            Statement stat = con.createStatement();
+            rs = stat.executeQuery(sql);
+            return rs;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return null;
+    }
+
+    public void editCharacter(String chId, String name, String classId, String descr) {
+        try {
+            String sql = "" +
+                    "UPDATE gamechar SET " +
+                    "name = \"" + name + "\", " +
+                    "classId = \"" + classId + "\", " +
+                    "description = \"" + descr + "\" " +
+                    "WHERE id = \"" + chId + "\"";
+            Statement stat = con.createStatement();
+            stat.executeUpdate(sql);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
 }

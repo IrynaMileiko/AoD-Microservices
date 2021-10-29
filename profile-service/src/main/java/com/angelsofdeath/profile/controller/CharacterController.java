@@ -19,7 +19,7 @@ public class CharacterController {
     @Autowired
     private CharacterService characterService;
 
-    @GetMapping("{id")
+    @GetMapping("id/{id}")
     public Character getCharacter(@PathVariable String id) {
         return characterService.getCharacter(id);
     }
@@ -41,9 +41,26 @@ public class CharacterController {
         return ResponseEntity.ok().headers(hh).body("{\nresult: " + characterService.getCharByName(name) + "\n}");
     }
 
+    @GetMapping(value = "/nameId/{name}/{chId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> getCharByNameId(@PathVariable String name, @PathVariable String chId) {
+        HttpHeaders hh = new HttpHeaders();
+        hh.set("Access-Control-Allow-Origin", "*");
+        return ResponseEntity.ok().headers(hh).body("{\nresult: " + characterService.getCharByNameId(name,chId) + "\n}");
+    }
+
     @PostMapping("/add")
     public void addCharacter(@RequestBody NewChar ch){
-        //characterService.addCharacter(ch.getName(),ch.getClassId(),ch.getDescr(), ch.getUserId());
-        System.out.println(ch.toString());
+        characterService.addCharacter(ch.getName(),ch.getClassId(),ch.getDescr(), ch.getUserId());
     }
+
+    @PostMapping("/edit/{chId}")
+    public void editCharacter(@PathVariable String chId, @RequestBody NewChar ch){
+        characterService.editCharacter(chId, ch.getName(),ch.getClassId(),ch.getDescr(), ch.getUserId());
+    }
+
+    @PostMapping("/delete/{chId}/{userId}")
+    public void deleteCharacter(@PathVariable String chId, @PathVariable String userId){
+        characterService.deleteCharacter(chId, userId);
+    }
+
 }

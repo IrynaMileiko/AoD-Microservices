@@ -23,7 +23,7 @@ public class CharacterRepository {
 
             CharClass charClass = new CharClass();
             charClass.setId(rs.getLong("charclass.id"));
-            charClass.setName(rs.getString("classchar.name"));
+            charClass.setName(rs.getString("charclass.name"));
             charClass.setImg(rs.getString("img"));
             character.setCharClass(charClass);
         } catch (
@@ -83,9 +83,11 @@ public class CharacterRepository {
         connector.connect();
         ResultSet rs = connector.getCharByName(name);
         try {
-            if(rs.next()){
+            if (rs.next()) {
+                connector.disconnect();
                 return true;
             }
+            connector.disconnect();
             return false;
         } catch (SQLException e) {
         }
@@ -95,7 +97,51 @@ public class CharacterRepository {
 
     public void addCharacter(String name, String classId, String descr, String userId) {
         connector.connect();
-        connector.addCharacter(name,classId,descr,userId);
+        connector.addCharacter(name, classId, descr, userId);
+        connector.disconnect();
+    }
+
+    public void deleteCharacter(String chId) {
+        connector.connect();
+        connector.deleteCharacter(chId);
+        connector.disconnect();
+    }
+
+    public boolean isUsersChar(String chId, String userId) {
+        connector.connect();
+        ResultSet rs = connector.getChUs(chId, userId);
+        try {
+            if (rs.next()) {
+                connector.disconnect();
+                return true;
+            }
+            connector.disconnect();
+            return false;
+        } catch (SQLException e) {
+        }
+        connector.disconnect();
+        return false;
+    }
+
+    public Boolean getCharByNameId(String name, String chId) {
+        connector.connect();
+        ResultSet rs = connector.getCharByNameId(name, chId);
+        try {
+            if (rs.next()) {
+                connector.disconnect();
+                return true;
+            }
+            connector.disconnect();
+            return false;
+        } catch (SQLException e) {
+        }
+        connector.disconnect();
+        return false;
+    }
+
+    public void editCharacter(String chId, String name, String classId, String descr) {
+        connector.connect();
+        connector.editCharacter(chId, name, classId, descr);
         connector.disconnect();
     }
 }
