@@ -145,4 +145,15 @@ public class DbConnector {
         }
         return null;
     }
+
+    public void sendMessage(String userId, String msgTxt, String dateTime){
+        try {
+            String sql = "INSERT into message (datetime, userId, text) values ('" + dateTime +
+                    "', "+userId+", '"+msgTxt+"')";
+            Statement stat = con.createStatement();
+            stat.executeUpdate(sql);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
 }

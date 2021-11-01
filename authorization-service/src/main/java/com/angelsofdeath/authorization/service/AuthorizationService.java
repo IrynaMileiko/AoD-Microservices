@@ -19,14 +19,18 @@ public class AuthorizationService {
     }
 
     public Boolean getUserByLogin(String login) {
-        return authorizationRepository.getUserByLogin(login);
+        return authorizationRepository.getUserByLogin(login, "-1");
     }
 
     public Boolean getUserByUsername(String username) {
-        return authorizationRepository.getUserByUsername(username);
+        return authorizationRepository.getUserByUsername(username, "-1");
     }
 
-    public LUCheck getByLU(String login, String username) {
-        return authorizationRepository.getUserByLU(login, username);
+    public LUCheck getByLU(String login, String username, String userID) {
+        return authorizationRepository.getUserByLU(login, username, userID);
+    }
+
+    public Boolean getUserByUserIdPassword(String uId, String password) {
+        return authorizationRepository.getUserByUserIdPassword(uId, password);
     }
 }

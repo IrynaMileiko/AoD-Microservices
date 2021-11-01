@@ -13,7 +13,7 @@ public class AuthorizationRepository {
     public User getUser(String login, String password) {
         connector.connect();
 
-        ResultSet rs = connector.getUserByLP(login,password);
+        ResultSet rs = connector.getUserByLP(login, password);
         User user = new User();
         try {
             rs.next();
@@ -52,16 +52,15 @@ public class AuthorizationRepository {
         return user;
     }
 
-    public Boolean getUserByLogin(String login) {
+    public Boolean getUserByLogin(String login, String userID) {
         connector.connect();
 
-        ResultSet rs = connector.getUserByLogin(login);
+        ResultSet rs = connector.checkSelfLogin(login, userID);
         try {
-            if(rs.next()){
+            if (rs.next()) {
                 connector.disconnect();
                 return true;
-            }
-            else{
+            } else {
                 connector.disconnect();
                 return false;
             }
@@ -72,16 +71,15 @@ public class AuthorizationRepository {
         return false;
     }
 
-    public Boolean getUserByUsername(String username) {
+    public Boolean getUserByUsername(String username, String userID) {
         connector.connect();
 
-        ResultSet rs = connector.getUserByNickname(username);
+        ResultSet rs = connector.checkSelfUsername(username, userID);
         try {
-            if(rs.next()){
+            if (rs.next()) {
                 connector.disconnect();
                 return true;
-            }
-            else{
+            } else {
                 connector.disconnect();
                 return false;
             }
@@ -92,12 +90,35 @@ public class AuthorizationRepository {
         return false;
     }
 
-    public LUCheck getUserByLU(String login, String username) {
+    public LUCheck getUserByLU(String login, String username, String userID) {
         LUCheck luc = new LUCheck();
         connector.connect();
-        luc.setLogin(getUserByLogin(login));
-        luc.setUsername(getUserByUsername(username));
+        luc.setLogin(getUserByLogin(login, userID));
+        luc.setUsername(getUserByUsername(username, userID));
         connector.disconnect();
         return luc;
+    }
+
+    public Boolean getUserByUserIdPassword(String uId, String password) {
+        connector.connect();
+        ResultSet rs = connector.getUser(Long.parseLong(uId));
+        try {
+            if (rs.next()) {
+                if (rs.getString("password").equals(password)) {
+                    connector.disconnect();
+                    return true;
+                } else {
+                    connector.disconnect();
+                    return false;
+                }
+            } else {
+                connector.disconnect();
+                return false;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        connector.disconnect();
+        return false;
     }
 }

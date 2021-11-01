@@ -1,6 +1,7 @@
 package com.angelsofdeath.adminpanel.controller;
 
 import com.angelsofdeath.adminpanel.entity.User;
+import com.angelsofdeath.adminpanel.entity.UserEdit;
 import com.angelsofdeath.adminpanel.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -24,9 +25,10 @@ public class UserController {
     }
 
     @PostMapping("/update")
-    public void updateUser(@RequestParam String uid, @RequestParam String login, @RequestParam String password,
-                           @RequestParam String roleId, @RequestParam String nickname, @RequestParam String comment){
-        userService.updateUser(uid, login, password, roleId, nickname, comment);
+    public void updateUser(@RequestBody UserEdit user){
+        System.out.println(user.toString());
+        userService.updateUser(user.getUid().toString(), user.getLogin(),user.getPassword(),
+                user.getRoleId().toString(),user.getNickname(),user.getComment());
     }
 
     @GetMapping("/login/{login}")

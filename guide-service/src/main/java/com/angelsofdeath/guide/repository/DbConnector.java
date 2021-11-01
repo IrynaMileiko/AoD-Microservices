@@ -107,4 +107,34 @@ public class DbConnector {
         }
     }
 
+    public ResultSet getAllNews() {
+        try {
+            ResultSet rs;
+            String sql = "SELECT * FROM new JOIN user JOIN role\n" +
+                    "ON new.userId = user.id AND user.roleId = role.id\n" +
+                    "ORDER BY DATE DESC;";
+            Statement stat = con.createStatement();
+            rs = stat.executeQuery(sql);
+            return rs;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return null;
+    }
+
+    public ResultSet getNews(String id) {
+        try {
+            ResultSet rs;
+            String sql = "SELECT * FROM new JOIN user JOIN role\n" +
+                    "ON new.userId = user.id AND user.roleId = role.id\n" +
+                    "WHERE new.id = " + id +
+                    "\nORDER BY DATE DESC;";
+            Statement stat = con.createStatement();
+            rs = stat.executeQuery(sql);
+            return rs;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return null;
+    }
 }

@@ -15,6 +15,11 @@ public class AuthorizationController {
     @Autowired
     private AuthorizationService authorizationService;
 
+    @GetMapping("/getUbyUidP/{uId}/{password}")
+    public String getUserByUserIdPassword(@PathVariable("uId") String uId, @PathVariable("password") String password){
+        return "{\n\t\"res\": "+authorizationService.getUserByUserIdPassword(uId, password).toString()+"\n}";
+    }
+
     @GetMapping("/{login}/{password}")
     public User getUser(@PathVariable("login") String login, @PathVariable("password") String password){
         return authorizationService.getUser(login, password);
@@ -26,8 +31,8 @@ public class AuthorizationController {
     }
 
     @GetMapping(value = "/getLU",produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<LUCheck> getByLU(@RequestParam String login, @RequestParam String username){
-        return ResponseEntity.ok().body(authorizationService.getByLU(login, username));
+    public ResponseEntity<LUCheck> getByLU(@RequestParam String login, @RequestParam String username, @RequestParam String userID){
+        return ResponseEntity.ok().body(authorizationService.getByLU(login, username, userID));
     }
 
     @GetMapping(path="/getLogin")

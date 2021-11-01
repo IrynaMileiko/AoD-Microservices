@@ -13,4 +13,8 @@ public class MessageService {
     public List<Message> getMessages() {
         return messageRepository.getMessages();
     }
+
+    public void sendMessage(String userId, String msgTxt, String dateTime) {
+        messageRepository.sendMessage(userId, msgTxt, dateTime);
+    }
 }

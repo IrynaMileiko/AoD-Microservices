@@ -131,4 +131,14 @@ public class DbConnector {
         }
     }
 
+    public void editUserWOPassword(String uid, String login, String nickname, String comment) {
+        try {
+            String sql = "UPDATE user set login=\"" + login + "\", nickname=\"" + nickname +
+                    "\", comment=\"" + comment + "\" WHERE id=" + uid;
+            Statement stat = con.createStatement();
+            stat.executeUpdate(sql);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
 }

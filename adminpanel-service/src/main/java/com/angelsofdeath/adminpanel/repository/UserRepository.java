@@ -60,7 +60,11 @@ public class UserRepository {
 
     public void updateUser(String uid, String login, String password, String roleId, String nickname, String comment) {
         connector.connect();
-        connector.editUser(uid, login, password, nickname, comment, roleId);
+        if (password.equals("")) {
+            connector.editUserWOPassword(uid, login, nickname, comment);
+        } else {
+            connector.editUser(uid, login, password, nickname, comment, roleId);
+        }
         connector.disconnect();
     }
 

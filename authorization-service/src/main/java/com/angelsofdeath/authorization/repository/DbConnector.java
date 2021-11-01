@@ -82,6 +82,21 @@ public class DbConnector {
         }
         return null;
     }
+    public ResultSet checkSelfLogin(String login, String userID) {
+        connect();
+        try {
+            ResultSet rs;
+            String sql = "SELECT * FROM user\n" +
+                    "WHERE login=\"" + login+"\" and " +
+                    "id!=\""+userID+"\"";
+            Statement stat = con.createStatement();
+            rs = stat.executeQuery(sql);
+            return rs;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return null;
+    }
 
     public ResultSet getUserByLP(String login,String password) {
         try {
@@ -102,6 +117,21 @@ public class DbConnector {
             ResultSet rs;
             String sql = "SELECT * FROM user\n" +
                     "WHERE nickname=\"" + nickname+"\"";
+            Statement stat = con.createStatement();
+            rs = stat.executeQuery(sql);
+            return rs;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return null;
+    }
+
+    public ResultSet checkSelfUsername(String username, String userID) {
+        try {
+            ResultSet rs;
+            String sql = "SELECT * FROM user\n" +
+                    "WHERE nickname=\"" + username+"\" and " +
+                    "id!=\""+userID+"\"";
             Statement stat = con.createStatement();
             rs = stat.executeQuery(sql);
             return rs;
@@ -170,6 +200,7 @@ public class DbConnector {
         }
         return null;
     }
+
 
 
 }

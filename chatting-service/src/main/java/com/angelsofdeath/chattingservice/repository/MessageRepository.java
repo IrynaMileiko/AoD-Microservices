@@ -46,4 +46,10 @@ public class MessageRepository {
         connector.disconnect();
         return messages;
     }
+
+    public void sendMessage(String userId, String msgTxt, String dateTime) {
+        connector.connect();
+        connector.sendMessage(userId, msgTxt, dateTime);
+        connector.disconnect();
+    }
 }
