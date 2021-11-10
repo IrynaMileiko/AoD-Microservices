@@ -137,4 +137,64 @@ public class DbConnector {
         }
         return null;
     }
+
+    public ResultSet getGUs(String chId, String userId) {
+        try {
+            ResultSet rs;
+            String sql = "SELECT * FROM user JOIN guide\n" +
+                    "ON guide.userId = user.id\n" +
+                    "    WHERE user.id=\"" + userId + "\" AND " +
+                    "       guide.id=\"" + chId + "\"";
+            Statement stat = con.createStatement();
+            rs = stat.executeQuery(sql);
+            return rs;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return null;
+    }
+
+    public void editGuide(String id, String name, String text) {
+        try {
+            String sql = "" +
+                    "UPDATE guide SET " +
+                    "name = ?, " +
+                    "text = ? " +
+                    "WHERE id = ?";
+            PreparedStatement preparedStatement = con.prepareStatement(sql);
+            preparedStatement.setString(1, name);
+            preparedStatement.setString(2, text);
+            preparedStatement.setLong(3, Long.parseLong(id));
+            preparedStatement.executeUpdate();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
+    public void addGuide(String userId, String name, String text, String date) {
+        try {
+            String sql = "INSERT into guide(userId, name, date, text) values (?, ?, ?, ?);";
+            PreparedStatement stat = con.prepareStatement(sql);
+            stat.setString(1, userId);
+            stat.setString(2, name);
+            stat.setString(3, date);
+            stat.setString(4, text);
+            stat.executeUpdate();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
+    public void deleteGuide(String id) {
+        try {
+            String sql = "" +
+                    "DELETE FROM guide " +
+                    "WHERE id = ?";
+            PreparedStatement preparedStatement = con.prepareStatement(sql);
+            preparedStatement.setLong(1, Long.parseLong(id));
+            preparedStatement.executeUpdate();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
 }
