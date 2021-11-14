@@ -86,4 +86,38 @@ public class NewsRepository {
         connector.disconnect();
         return news;
     }
+
+    public boolean isUsersNew(String chId, String userId) {
+        connector.connect();
+        ResultSet rs = connector.getNUs(chId, userId);
+        try {
+            if (rs.next()) {
+                connector.disconnect();
+                return true;
+            }
+            connector.disconnect();
+            return false;
+        } catch (SQLException e) {
+        }
+        connector.disconnect();
+        return false;
+    }
+
+    public void editNew(String id, String name, String text) {
+        connector.connect();
+        connector.editNew(id, name, text);
+        connector.disconnect();
+    }
+
+    public void addNew(String userId, String name, String text, String date) {
+        connector.connect();
+        connector.addNew(userId,name,text,date);
+        connector.disconnect();
+    }
+
+    public void deleteNew(String id) {
+        connector.connect();
+        connector.deleteNew(id);
+        connector.disconnect();
+    }
 }
