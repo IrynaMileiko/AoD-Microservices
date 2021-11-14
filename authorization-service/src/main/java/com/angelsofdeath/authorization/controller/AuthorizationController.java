@@ -1,6 +1,7 @@
 package com.angelsofdeath.authorization.controller;
 
 import com.angelsofdeath.authorization.entity.LUCheck;
+import com.angelsofdeath.authorization.entity.LUCheckGet;
 import com.angelsofdeath.authorization.entity.User;
 import com.angelsofdeath.authorization.service.AuthorizationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,19 +21,19 @@ public class AuthorizationController {
         return "{\n\t\"res\": "+authorizationService.getUserByUserIdPassword(uId, password).toString()+"\n}";
     }
 
-    @GetMapping("/{login}/{password}")
-    public User getUser(@PathVariable("login") String login, @PathVariable("password") String password){
-        return authorizationService.getUser(login, password);
+    @PostMapping("/login")
+    public User getUser(@RequestBody User user){
+        return authorizationService.getUser(user.getLogin(), user.getPassword());
     }
 
     @PostMapping("/register")
-    public User addUser(@RequestParam String username, @RequestParam String login, @RequestParam String password){
-        return authorizationService.addUser(username, login, password);
+    public User addUser(@RequestBody User user){
+        return authorizationService.addUser(user.getNickname(), user.getLogin(), user.getPassword());
     }
 
-    @GetMapping(value = "/getLU",produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<LUCheck> getByLU(@RequestParam String login, @RequestParam String username, @RequestParam String userID){
-        return ResponseEntity.ok().body(authorizationService.getByLU(login, username, userID));
+    @PostMapping(value = "/getLU",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<LUCheck> getByLU(@RequestBody LUCheckGet lget){
+        return ResponseEntity.ok().body(authorizationService.getByLU(lget.getLogin(), lget.getNickname(), lget.getUserID()));
     }
 
     @GetMapping(path="/getLogin")
