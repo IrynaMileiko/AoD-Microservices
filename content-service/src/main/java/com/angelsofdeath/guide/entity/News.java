@@ -7,18 +7,21 @@ public class News {
     String date;
     String text;
     User user;
+    String url;
 
     public News() {
     }
 
-    public News(Long id, Long userId, String name, String date, String text, User user) {
+    public News(Long id, Long userId, String name, String date, String text, User user, String url) {
         this.id = id;
         this.userId = userId;
         this.name = name;
         this.date = date;
         this.text = text;
         this.user = user;
+        this.url = url;
     }
+
 
     public Long getId() {
         return id;
@@ -66,5 +69,13 @@ public class News {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 }

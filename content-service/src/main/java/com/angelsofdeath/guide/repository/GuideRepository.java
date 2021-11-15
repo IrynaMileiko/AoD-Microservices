@@ -4,6 +4,7 @@ import com.angelsofdeath.guide.entity.Guide;
 import com.angelsofdeath.guide.entity.Role;
 import com.angelsofdeath.guide.entity.User;
 
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
@@ -84,5 +85,39 @@ public class GuideRepository {
         }
         connector.disconnect();
         return guide;
+    }
+
+    public boolean isUsersGuide(String chId, String userId) {
+        connector.connect();
+        ResultSet rs = connector.getGUs(chId, userId);
+        try {
+            if (rs.next()) {
+                connector.disconnect();
+                return true;
+            }
+            connector.disconnect();
+            return false;
+        } catch (SQLException e) {
+        }
+        connector.disconnect();
+        return false;
+    }
+
+    public void editGuide(String id, String name, String text) {
+        connector.connect();
+        connector.editGuide(id, name, text);
+        connector.disconnect();
+    }
+
+    public void addGuide(String userId, String name, String text, String date) {
+        connector.connect();
+        connector.addGuide(userId,name,text,date);
+        connector.disconnect();
+    }
+
+    public void deleteGuide(String id) {
+        connector.connect();
+        connector.deleteGuide(id);
+        connector.disconnect();
     }
 }
