@@ -1,4 +1,4 @@
-package com.angelsofdeath.guide.entity;
+package com.angelsofdeath.services.entity;
 
 public class Guide {
     Long id;

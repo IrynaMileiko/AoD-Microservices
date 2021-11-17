@@ -1,7 +1,7 @@
-package com.angelsofdeath.guide.service;
+package com.angelsofdeath.services.service;
 
-import com.angelsofdeath.guide.entity.Guide;
-import com.angelsofdeath.guide.repository.GuideRepository;
+import com.angelsofdeath.services.entity.Guide;
+import com.angelsofdeath.services.repository.GuideRepository;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;

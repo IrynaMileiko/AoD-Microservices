@@ -1,4 +1,4 @@
-package com.angelsofdeath.guide.entity;
+package com.angelsofdeath.services.entity;
 
 public class Role {
     private Long id;

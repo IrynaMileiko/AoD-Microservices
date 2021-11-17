@@ -1,9 +1,8 @@
-package com.angelsofdeath.guide.repository;
+package com.angelsofdeath.services.repository;
 
-import com.angelsofdeath.guide.entity.Event;
-import com.angelsofdeath.guide.entity.Guide;
-import com.angelsofdeath.guide.entity.Role;
-import com.angelsofdeath.guide.entity.User;
+import com.angelsofdeath.services.entity.Event;
+import com.angelsofdeath.services.entity.Role;
+import com.angelsofdeath.services.entity.User;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

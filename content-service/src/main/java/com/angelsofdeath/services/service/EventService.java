@@ -1,11 +1,9 @@
-package com.angelsofdeath.guide.service;
+package com.angelsofdeath.services.service;
 
-import com.angelsofdeath.guide.entity.Event;
-import com.angelsofdeath.guide.repository.EventRepository;
+import com.angelsofdeath.services.entity.Event;
+import com.angelsofdeath.services.repository.EventRepository;
 import org.springframework.stereotype.Service;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 @Service

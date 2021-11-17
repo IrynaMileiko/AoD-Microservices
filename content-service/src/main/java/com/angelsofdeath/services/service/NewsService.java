@@ -1,7 +1,7 @@
-package com.angelsofdeath.guide.service;
+package com.angelsofdeath.services.service;
 
-import com.angelsofdeath.guide.entity.News;
-import com.angelsofdeath.guide.repository.NewsRepository;
+import com.angelsofdeath.services.entity.News;
+import com.angelsofdeath.services.repository.NewsRepository;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

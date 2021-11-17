@@ -1,10 +1,9 @@
-package com.angelsofdeath.guide.controller;
+package com.angelsofdeath.services.controller;
 
-import com.angelsofdeath.guide.entity.Event;
-import com.angelsofdeath.guide.entity.Guide;
-import com.angelsofdeath.guide.entity.NewEvent;
-import com.angelsofdeath.guide.entity.NewGuide;
-import com.angelsofdeath.guide.service.EventService;
+import com.angelsofdeath.services.entity.Event;
+import com.angelsofdeath.services.entity.NewEvent;
+import com.angelsofdeath.services.entity.NewGuide;
+import com.angelsofdeath.services.service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

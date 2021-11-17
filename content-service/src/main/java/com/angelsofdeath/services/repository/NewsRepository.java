@@ -1,31 +1,31 @@
-package com.angelsofdeath.guide.repository;
+package com.angelsofdeath.services.repository;
 
-import com.angelsofdeath.guide.entity.Guide;
-import com.angelsofdeath.guide.entity.Role;
-import com.angelsofdeath.guide.entity.User;
+import com.angelsofdeath.services.entity.News;
+import com.angelsofdeath.services.entity.Role;
+import com.angelsofdeath.services.entity.User;
 
-import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
-public class GuideRepository {
+public class NewsRepository {
     private DbConnector connector = new DbConnector();
 
 
-    public List<Guide> getAllGuides() {
+    public List<News> getAllNews() {
         connector.connect();
-        ResultSet rs = connector.getGuides();
-        List<Guide> guides = new LinkedList<>();
+        ResultSet rs = connector.getAllNews();
+        List<News> news = new LinkedList<>();
         try {
             while (rs.next()) {
-                Guide guide = new Guide();
-                guide.setId(rs.getLong("guide.id"));
-                guide.setUserId(rs.getLong("user.id"));
-                guide.setDate(rs.getString("date"));
-                guide.setName(rs.getString("guide.name"));
-                guide.setText(rs.getString("text"));
+                News news1 = new News();
+                news1.setId(rs.getLong("new.id"));
+                news1.setUserId(rs.getLong("user.id"));
+                news1.setDate(rs.getString("date"));
+                news1.setName(rs.getString("new.name"));
+                news1.setText(rs.getString("text"));
+                news1.setUrl(rs.getString("url"));
 
                 Role role = new Role();
                 role.setId(rs.getLong("role.id"));
@@ -41,28 +41,28 @@ public class GuideRepository {
                 user.setComment(rs.getString("comment"));
 
                 user.setRole(role);
-                guide.setUser(user);
+                news1.setUser(user);
 
-                guides.add(guide);
+                news.add(news1);
             }
         } catch (SQLException e) {
 
         }
         connector.disconnect();
-        return guides;
+        return news;
     }
 
-    public Guide getGuide(String id) {
+    public News getNews(String id) {
         connector.connect();
-        ResultSet rs = connector.getGuide(id);
-        Guide guide = new Guide();
+        ResultSet rs = connector.getNews(id);
+        News news = new News();
         try {
             rs.next();
-            guide.setId(rs.getLong("guide.id"));
-            guide.setUserId(rs.getLong("user.id"));
-            guide.setDate(rs.getString("date"));
-            guide.setName(rs.getString("guide.name"));
-            guide.setText(rs.getString("text"));
+            news.setId(rs.getLong("new.id"));
+            news.setUserId(rs.getLong("user.id"));
+            news.setDate(rs.getString("date"));
+            news.setName(rs.getString("new.name"));
+            news.setText(rs.getString("text"));
 
             Role role = new Role();
             role.setId(rs.getLong("role.id"));
@@ -78,18 +78,18 @@ public class GuideRepository {
             user.setComment(rs.getString("comment"));
 
             user.setRole(role);
-            guide.setUser(user);
+            news.setUser(user);
 
         } catch (SQLException e) {
             return null;
         }
         connector.disconnect();
-        return guide;
+        return news;
     }
 
-    public boolean isUsersGuide(String chId, String userId) {
+    public boolean isUsersNew(String chId, String userId) {
         connector.connect();
-        ResultSet rs = connector.getGUs(chId, userId);
+        ResultSet rs = connector.getNUs(chId, userId);
         try {
             if (rs.next()) {
                 connector.disconnect();
@@ -103,21 +103,21 @@ public class GuideRepository {
         return false;
     }
 
-    public void editGuide(String id, String name, String text) {
+    public void editNew(String id, String name, String text) {
         connector.connect();
-        connector.editGuide(id, name, text);
+        connector.editNew(id, name, text);
         connector.disconnect();
     }
 
-    public void addGuide(String userId, String name, String text, String date) {
+    public void addNew(String userId, String name, String text, String date) {
         connector.connect();
-        connector.addGuide(userId,name,text,date);
+        connector.addNew(userId,name,text,date);
         connector.disconnect();
     }
 
-    public void deleteGuide(String id) {
+    public void deleteNew(String id) {
         connector.connect();
-        connector.deleteGuide(id);
+        connector.deleteNew(id);
         connector.disconnect();
     }
 }

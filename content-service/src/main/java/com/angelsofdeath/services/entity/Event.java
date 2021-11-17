@@ -1,27 +1,24 @@
-package com.angelsofdeath.guide.entity;
+package com.angelsofdeath.services.entity;
 
-public class News {
+public class Event {
     Long id;
     Long userId;
-    String name;
     String date;
+    String name;
     String text;
     User user;
-    String url;
 
-    public News() {
+    public Event() {
     }
 
-    public News(Long id, Long userId, String name, String date, String text, User user, String url) {
+    public Event(Long id, Long userId, String date, String name, String text, User user) {
         this.id = id;
         this.userId = userId;
-        this.name = name;
         this.date = date;
+        this.name = name;
         this.text = text;
         this.user = user;
-        this.url = url;
     }
-
 
     public Long getId() {
         return id;
@@ -39,20 +36,20 @@ public class News {
         this.userId = userId;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getDate() {
         return date;
     }
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getText() {
@@ -71,11 +68,15 @@ public class News {
         this.user = user;
     }
 
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
+    @Override
+    public String toString() {
+        return "Event{" +
+                "id=" + id +
+                ", userId=" + userId +
+                ", date='" + date + '\'' +
+                ", name='" + name + '\'' +
+                ", text='" + text + '\'' +
+                ", user=" + user.toString() +
+                '}';
     }
 }

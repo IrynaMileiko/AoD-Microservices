@@ -1,13 +1,13 @@
-package com.angelsofdeath.guide;
+package com.angelsofdeath.services;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class GuideServiceApplication {
+public class ContentServiceApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(GuideServiceApplication.class, args);
+		SpringApplication.run(ContentServiceApplication.class, args);
 	}
 
 }

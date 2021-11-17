@@ -1,8 +1,6 @@
-package com.angelsofdeath.guide.repository;
+package com.angelsofdeath.services.repository;
 
 import java.sql.*;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 
 public class DbConnector {
     private final String db_name = "guild_site_db";
